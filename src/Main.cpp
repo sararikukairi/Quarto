@@ -1,18 +1,22 @@
 
-# include <Siv3D.hpp> // OpenSiv3D v0.4.1
 # include "Scene.hpp"
 # include "Game.hpp"
 # include "Title.hpp"
-# include <HamFramework.hpp>
 
 void Main()
 {
+    Scene::SetBackground(ColorF(0.2, 0.8, 0.4));
+    FontAsset::Register(U"Title", 120, Typeface::Heavy);
+    FontAsset::Register(U"Menu", 30, Typeface::Regular);
+    FontAsset::Register(U"Score", 36, Typeface::Bold);
+    
     Myapp manager;
     
     manager
         .add<Title>(State::Title)
         .add<Game>(State::Game)
         .setFadeColor(ColorF(1.0));
+    
 	while (System::Update())
 	{
         if(!manager.update())
