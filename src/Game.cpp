@@ -18,8 +18,8 @@ void Game::update()
     
 }
 
-const void Game::draw()
+void Game::draw() const
 {
-    
+
 }
 

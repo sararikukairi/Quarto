@@ -15,10 +15,12 @@ Title::Title(const InitData& init)
 
 void Title::update()
 {
-    
+    if(MouseL.down()){
+        changeScene(State::Game);
+    }
 }
 
-const void Title::draw()
+void Title::draw() const
 {
     
 }

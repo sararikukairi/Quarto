@@ -9,7 +9,6 @@
 #define Scene_hpp
 
 #include <Siv3D.hpp>
-#include <HamFramework.hpp>
 
 enum class State
 {
@@ -20,8 +19,7 @@ enum class State
 
 struct GameData
 {
-    Font font(30);
-    int32 highScore = 0;
+    bool flag;  
 };
 
 using Myapp = SceneManager<State, GameData>;

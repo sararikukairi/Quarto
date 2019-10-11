@@ -12,10 +12,40 @@
 
 class Game:public Myapp::Scene
 {
+private:
+    int8 map[4][4]={0};
+    struct RB{
+        Rect shorthole();
+        Rect longhole();
+        Rect shortunhole();
+        Rect longunhole();
+    };
+    
+    struct CB{
+        Circle shorthole();
+        Circle longhole();
+        Circle shortunhole();
+        Circle longunhole();
+    };
+    
+    struct RW{
+        Rect shorthole();
+        Rect longhole();
+        Rect shortunhole();
+        Rect longunhole();
+    };
+    
+    struct CW{
+        Circle shorthole();
+        Circle longhole();
+        Circle shortunhole();
+        Circle longunhole();
+    };
+    
 public:
     Game(const InitData& init);
-    void update();
-    const void draw();
+    void update() override;
+    void draw() const override;
 };
 
 #endif /* Game_hpp */
