@@ -5,6 +5,9 @@
 
 void Main()
 {
+    
+    Window::Resize(1088,612);
+    
     Scene::SetBackground(ColorF(0.2, 0.8, 0.4));
     FontAsset::Register(U"Title", 120, Typeface::Heavy);
     FontAsset::Register(U"Menu", 30, Typeface::Regular);
@@ -17,8 +20,10 @@ void Main()
         .add<Game>(State::Game)
         .setFadeColor(ColorF(1.0));
     
+    
 	while (System::Update())
 	{
+       
         if(!manager.update())
         {
             break;
