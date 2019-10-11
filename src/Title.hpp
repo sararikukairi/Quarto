@@ -14,8 +14,8 @@ class Title:public Myapp::Scene
 {
 public:
     Title(const InitData& init);
-    void update();
-    const void draw();
+    void update() override;
+    void draw() const override;
 };
 
 
