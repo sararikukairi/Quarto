@@ -13,26 +13,13 @@
 class Game:public Myapp::Scene
 {
 private:
-    int8 bord[4][4]={0};
-    
-    const Texture LBCH(U"example/texture/LBCH.png");
-    const Texture LBCU(U"example/texture/LBCU.png");
-    const Texture LBRH(U"example/texture/LBRH.png");
-    const Texture LBRU(U"example/texture/LBRU.png");
-    const Texture SBRH(U"example/texture/SBRH.png");
-    const Texture SBRU(U"example/texture/SBRU.png");
-    const Texture SBCH(U"example/texture/SBCH.png");
-    const Texture SBCU(U"example/texture/SBCU.png");
-    const Texture LWCH(U"example/texture/LWCH.png");
-    const Texture LWCU(U"example/texture/LWCU.png");
-    const Texture LWRH(U"example/texture/LWRH.png");
-    const Texture LWRU(U"example/texture/LWRU.png");
-    const Texture SWRH(U"example/texture/SWRH.png");
-    const Texture SWRU(U"example/texture/SWRU.png");
-    const Texture SWCH(U"example/texture/SWCH.png");
-    const Texture SWCU(U"example/texture/SWCU.png");
+    int8 bord[4][4][4]={0};//4*4のボードとマスに置かれてる駒属性を4ビット3進数で判断
+
+    Array<Texture> piece;
     
     Array<Circle> sell;
+    
+    int i;
     
 public:
     Game(const InitData& init);
