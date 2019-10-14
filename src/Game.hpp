@@ -13,34 +13,13 @@
 class Game:public Myapp::Scene
 {
 private:
-    int8 map[4][4]={0};
-    struct RB{
-        Rect shorthole();
-        Rect longhole();
-        Rect shortunhole();
-        Rect longunhole();
-    };
+    int8 bord[4][4][4]={0};//4*4のボードとマスに置かれてる駒属性を4ビット3進数で判断
+
+    Array<Texture> piece;
     
-    struct CB{
-        Circle shorthole();
-        Circle longhole();
-        Circle shortunhole();
-        Circle longunhole();
-    };
+    Array<Circle> sell;
     
-    struct RW{
-        Rect shorthole();
-        Rect longhole();
-        Rect shortunhole();
-        Rect longunhole();
-    };
-    
-    struct CW{
-        Circle shorthole();
-        Circle longhole();
-        Circle shortunhole();
-        Circle longunhole();
-    };
+    int i;
     
 public:
     Game(const InitData& init);
