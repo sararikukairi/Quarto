@@ -41,7 +41,6 @@ void Main()
         .add<Game>(State::Game)
         .setFadeColor(ColorF(1.0));
     
-    
 	while (System::Update())
 	{
         if(!manager.update())

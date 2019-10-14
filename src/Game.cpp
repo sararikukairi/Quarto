@@ -43,6 +43,7 @@ void Game::update()
 
 void Game::draw() const
 {
+
     ClearPrint();
     
     for(const auto& sells : sell)//ボード描画
@@ -62,5 +63,6 @@ void Game::draw() const
     
     Print<<Cursor::Pos();
     //Circle(Cursor::Pos(),30).draw();
+
 }
 
