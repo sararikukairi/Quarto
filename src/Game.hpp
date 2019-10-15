@@ -13,13 +13,20 @@
 class Game:public Myapp::Scene
 {
 private:
-    int8 bord[4][4][4]={0};//4*4のボードとマスに置かれてる駒属性を4ビット3進数で判断
+    int8 bord[16]={0};//駒の属性を格納
 
-    Array<Texture> piece;
+    Array<Texture> piece;//駒配列
+    Array<Circle> sell;//ボードマス
+    Array<Rect> hitbox;
     
-    Array<Circle> sell;
+    Rect quarto;
     
-    int i;
+    int8 i;
+    int8 p;//現在選ばれている駒の属性
+    int8 s;//選ばれたマス
+    
+    bool flag;//ターン進行
+    bool emptybord[16];
     
 public:
     Game(const InitData& init);

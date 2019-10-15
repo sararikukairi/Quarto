@@ -9,10 +9,11 @@ void Main()
     Window::Resize(1088,612);
     
     Scene::SetBackground(ColorF(0.6, 0.8, 0.4));
+    
     FontAsset::Register(U"Title", 120, Typeface::Heavy);
     FontAsset::Register(U"Menu", 30, Typeface::Regular);
     FontAsset::Register(U"Score", 36, Typeface::Bold);
-    /*
+
     TextureAsset::Register(U"LBCH",U"example/texture/LBCH.png");
     TextureAsset::Register(U"LBCU",U"example/texture/LBCU.png");
     TextureAsset::Register(U"LBRH",U"example/texture/LBRH.png");
@@ -29,10 +30,6 @@ void Main()
     TextureAsset::Register(U"SWCU",U"example/texture/SWCU.png");
     TextureAsset::Register(U"SWRU",U"example/texture/SWRU.png");
     TextureAsset::Register(U"SWRH",U"example/texture/SWRH.png");
-     */
-    for(char i = 1;i<17;i++){
-        TextureAsset::Register(U"k",U"example/texture/LBCH.png");
-    }
     
     Myapp manager;
     
