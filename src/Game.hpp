@@ -16,7 +16,7 @@ private:
     int8 bord[16];//駒の属性を格納
 
     Array<Texture> piece;//駒配列
-    Array<Array<Circle>> sell;//ボードマス
+    Array<Circle> sell;//ボードマス
     Array<Rect> piecebox;
     
     Rect quarto;
