@@ -13,11 +13,11 @@
 class Game:public Myapp::Scene
 {
 private:
-    int8 bord[16]={0};//駒の属性を格納
+    int8 bord[16];//駒の属性を格納
 
     Array<Texture> piece;//駒配列
-    Array<Circle> sell;//ボードマス
-    Array<Rect> hitbox;
+    Array<Array<Circle>> sell;//ボードマス
+    Array<Rect> piecebox;
     
     Rect quarto;
     
@@ -25,6 +25,7 @@ private:
     int8 p;//現在選ばれている駒の属性
     int8 s;//選ばれたマス
     
+    bool pturn;
     bool flag;//ターン進行
     bool emptybord[16];
     

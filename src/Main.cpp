@@ -2,7 +2,6 @@
 # include "Scene.hpp"
 # include "Game.hpp"
 # include "Title.hpp"
-
 void Main()
 {
     
@@ -44,6 +43,7 @@ void Main()
         {
             break;
         }
+        
 	}
 }
 
