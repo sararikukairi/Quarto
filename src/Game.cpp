@@ -6,26 +6,38 @@
 //
 
 #include "Game.hpp"
-int8 setsellnumber(Array<Circle> sell,int8 bord[]);
+bool setsellnumber(Array<Array<Circle>> sell,int8 *x,int8 *y,const Array<Array<int8>> bord);
 void piecedraw(const Array<Texture> piece,const Array<Rect> piecebox,const bool empty[]);
-void usepiecedraw(const Array<Texture> piece,const Array<Circle> sell,const int8 bord[]);
+void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,const Array<Array<int8>> bord);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 Game::Game(const InitData& init)
 : IScene(init)
 {
-    for(i=0;i<4;i++)//ボード配置
+    
+    for(int i=0;i<4;i++)
     {
-        sell<<Circle(344+(i*64),64+(i*64),40);
-        sell<<Circle(280+(i*64),64*2+(i*64),40);
-        sell<<Circle(216+(i*64),64*3+(i*64),40);
-        sell<<Circle(152+(i*64),64*4+(i*64),40);
-    }
-    for(i=0;i<4;i++)//駒盤配置
-    {
+        sline1<<Circle(344+(i*64),64+(i*64),40);
+        sline2<<Circle(280+(i*64),64*2+(i*64),40);
+        sline3<<Circle(216+(i*64),64*3+(i*64),40);
+        sline4<<Circle(152+(i*64),64*4+(i*64),40);
+        
         piecebox<<Rect(700,50+i*100,100,100);
         piecebox<<Rect(800,50+i*100,100,100);
         piecebox<<Rect(900,50+i*100,100,100);
         piecebox<<Rect(1000,50+i*100,100,100);
+        
+        line1<<-1;
+        line2<<-1;
+        line3<<-1;
+        line4<<-1;
+    }
+    
+    bord<<line1<<line2<<line3<<line4;
+    sell<<sline1<<sline2<<sline3<<sline4;
+    
+    for(i=0;i<16;i++)
+    {
+        emptybord[i]=true;
     }
     //画像読み込み
     piece<<TextureAsset(U"LWCU");
@@ -50,12 +62,6 @@ Game::Game(const InitData& init)
     flag=true;
     pturn=false;
     
-    for(i=0;i<16;i++)
-    {
-        emptybord[i]=true;
-        bord[i]=-1;
-    }
-    
     
 }
 /////////////////////////////////////////////////////////
@@ -79,9 +85,10 @@ void Game::update()
     
     else
     {
-        if((s=setsellnumber(sell,bord))>=0)
+        
+        if(setsellnumber(sell,&x,&y,bord))
         {
-            bord[s]=p;
+            bord[x][y]=p;
             flag=true;
         }
     }
@@ -98,10 +105,12 @@ void Game::draw() const
 
     for(const auto& sells : sell)//ボード描画
     {
-        if(sells.mouseOver())
-            sells.draw(Palette::Red);
+        for(auto s:sells){
+        if(s.mouseOver())
+            s.draw(Palette::Red);
         else
-            sells.draw(Palette::Cyan);
+            s.draw(Palette::Cyan);
+        }
     }
 
     piecedraw(piece,piecebox,emptybord);//未使用の駒表示
@@ -127,28 +136,31 @@ void Game::draw() const
     {
         FontAsset(U"Score")(U"Player 2").draw();
     }
-    
+    for(int l=0;l<4;l++){
+        for(int p=0;p<4;p++){
+        Print<<bord[l][p];}}
 }
 ////////////////////////////////////////////////////////////////////////////
 
-int8 setsellnumber(Array<Circle> sell,int8 bord[])
+bool setsellnumber(Array<Array<Circle>> sell,int8 *x,int8 *y,const Array<Array<int8>> bord)
 {
-    for(size_t i=0;i<sell.size();i++)
+    for(size_t i=0;i<bord.size();i++)
     {
-        if(sell[i].leftClicked())
+        for(size_t j=0;j<bord[i].size();j++)
         {
-            return int(i);
+            if((sell[i][j].leftClicked())&&(bord[i][j]==-1))
+            {
+                *x=i;
+                *y=j;
+                return true;
+            }
         }
     }
-    return -1;
+    return false;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void piecedraw(const Array<Texture> piece,const Array<Rect> piecebox,const bool empty[])
 {
-    if(piece.size()!=piecebox.size())
-    {
-        return;
-    }
     
     for(size_t i=0;i<piece.size();i++)
     {
@@ -161,14 +173,16 @@ void piecedraw(const Array<Texture> piece,const Array<Rect> piecebox,const bool 
     return;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
-void usepiecedraw(const Array<Texture> piece,const Array<Circle> sell,const int8 bord[])
+void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,const Array<Array<int8>> bord)
 {
-    for(size_t i=0;i<16;i++)
+    
+    for(size_t i=0;i<bord.size();i++)
     {
-        if(bord[i]>=0)
-        {
-            piece[bord[i]].draw(sell[i].x-45,sell[i].y-55);
-        }
+        for(size_t j=0;j<bord[i].size();j++)
+            if(bord[i][j]>=0)
+            {
+                piece[bord[i][j]].draw(sell[i][j].x-45,sell[i][j].y-55);
+            }
     }
     return;
 }
