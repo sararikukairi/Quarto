@@ -157,6 +157,13 @@ void Game::draw() const
         FontAsset(U"Score")(U"Player 2").draw();
         FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[1])).draw(0,35);
     }
+    /*
+    ClearPrint();
+    for(int e=0;e<4;e++){
+        for(int p=0;p<4;p++){
+            Print<<bord[e][p];
+        }
+    }*/
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -208,7 +215,6 @@ void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,con
 bool check(const Array<Array<int8>> bord)
 {
     int jugd1=0,jugd2=15;
-    int jugd3=0,jugd4=15;
     bool flag=true;
     
     for(size_t i=0;i<bord.size();i++)
@@ -222,8 +228,6 @@ bool check(const Array<Array<int8>> bord)
             }
             jugd1=jugd1|bord[i][j];
             jugd2=jugd2&bord[i][j];
-            jugd3=jugd3|bord[j][i];
-            jugd4=jugd4&bord[j][i];
         }
     
         if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
@@ -234,21 +238,37 @@ bool check(const Array<Array<int8>> bord)
         {
             jugd1=0;
             jugd2=15;
+            flag=true;
+        }
+    }
+    
+    
+    for(size_t i=0;i<bord.size();i++)
+    {
+        for (size_t j=0;j<bord[i].size();j++)
+        {
+            if(bord[j][i]==-1)
+            {
+                flag=false;
+                break;
+            }
+            jugd1=jugd1|bord[j][i];
+            jugd2=jugd2&bord[j][i];
         }
         
-        if((((jugd3>-1)&&(jugd3<15))|(jugd4>0))&&flag)
+        if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
         {
             return true;
         }
         else
         {
-            jugd3=0;
-            jugd4=15;
+            jugd1=0;
+            jugd2=15;
+            flag=true;
         }
     }
     
     
-    flag=true;
     for(size_t i=0;i<bord.size();i++)
     {
         if(bord[i][i]==-1)
@@ -258,8 +278,6 @@ bool check(const Array<Array<int8>> bord)
         }
         jugd1=jugd1|bord[i][i];
         jugd2=jugd2&bord[i][i];
-        jugd3=jugd3|bord[3-i][i];
-        jugd4=jugd4&bord[3-i][i];
     }
     if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
     {
@@ -269,10 +287,10 @@ bool check(const Array<Array<int8>> bord)
     {
         jugd1=0;
         jugd2=15;
+        flag=true;
     }
     
     
-    flag=true;
     for(size_t i=0;i<bord.size();i++)
     {
         if(bord[3-i][i]==-1)
@@ -280,19 +298,13 @@ bool check(const Array<Array<int8>> bord)
             flag=false;
             break;
         }
-        jugd3=jugd3|bord[3-i][i];
-        jugd4=jugd4&bord[3-i][i];
+        jugd1=jugd1|bord[3-i][i];
+        jugd1=jugd2&bord[3-i][i];
         
     }
-    if((((jugd3>-1)&&(jugd3<15))|(jugd4>0))&&flag)
+    if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
     {
         return true;
     }
-    else
-    {
-        jugd3=0;
-        jugd4=15;
-    }
-    
     return false;
 }
