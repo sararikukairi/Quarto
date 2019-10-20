@@ -31,11 +31,6 @@ void Main()
     TextureAsset::Register(U"SWRU",U"example/texture/SWRU.png");
     TextureAsset::Register(U"SWRH",U"example/texture/SWRH.png");
 
-    
-    
-    
-    
-    
     Myapp manager;
     
     manager

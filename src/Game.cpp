@@ -121,7 +121,6 @@ void Game::update()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Game::draw() const
 {
-
     for(const auto& sells : sell)//ボード描画
     {
         for(auto s:sells){
@@ -157,13 +156,6 @@ void Game::draw() const
         FontAsset(U"Score")(U"Player 2").draw();
         FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[1])).draw(0,35);
     }
-    /*
-    ClearPrint();
-    for(int e=0;e<4;e++){
-        for(int p=0;p<4;p++){
-            Print<<bord[e][p];
-        }
-    }*/
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -289,7 +281,6 @@ bool check(const Array<Array<int8>> bord)
         jugd2=15;
         flag=true;
     }
-    
     
     for(size_t i=0;i<bord.size();i++)
     {
