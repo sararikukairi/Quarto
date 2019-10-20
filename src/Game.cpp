@@ -9,6 +9,7 @@
 bool setsellnumber(Array<Array<Circle>> sell,int8 *x,int8 *y,const Array<Array<int8>> bord);
 void piecedraw(const Array<Texture> piece,const Array<Rect> piecebox,const bool empty[]);
 void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,const Array<Array<int8>> bord);
+bool check(const Array<Array<int8>> bord);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 Game::Game(const InitData& init)
 : IScene(init)
@@ -60,15 +61,15 @@ Game::Game(const InitData& init)
     quarto=Rect(444,500,200,100);
     
     flag=true;
-    pturn=false;
+    cflag=true;
+    getData().pturn=false;
     
     
 }
 /////////////////////////////////////////////////////////
 void Game::update()
 {
-    ClearPrint();
-    if(flag)
+    if(flag&&cflag)
     {
         for(i=0;i<piecebox.size();i++)
         {
@@ -77,13 +78,13 @@ void Game::update()
                 p=i;
                 emptybord[i]=false;
                 flag=false;
-                pturn=!pturn;
+                getData().pturn=!getData().pturn;
                 break;
             }
         }
     }
     
-    else
+    else if(cflag)
     {
         
         if(setsellnumber(sell,&x,&y,bord))
@@ -93,9 +94,27 @@ void Game::update()
         }
     }
     
-    if(quarto.leftClicked())
+    if(quarto.leftClicked()&&cflag)
     {
-        
+        if(check(bord))
+        {
+            getData().jugd=true;
+            cflag=false;
+        }
+        else
+        {   if(getData().pturn)
+                penalty[0]++;
+            else
+                penalty[1]++;
+            getData().jugd=false;
+            if((getData().pturn&&penalty[0]==3)|(!getData().pturn&&penalty[1]==3))
+                cflag=false;
+        }
+    }
+    
+    if(!cflag&&KeyEnter.down())
+    {
+        changeScene(State::Result);
     }
     
 }
@@ -128,17 +147,16 @@ void Game::draw() const
         FontAsset(U"Score")(U"Quarto!").draw(quarto.x+30,quarto.y+25,Palette::Black);
     }
     
-    if(pturn)
+    if(getData().pturn)
     {
         FontAsset(U"Score")(U"Player 1").draw();
+        FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[0])).draw(0,35);
     }
     else
     {
         FontAsset(U"Score")(U"Player 2").draw();
+        FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[1])).draw(0,35);
     }
-    for(int l=0;l<4;l++){
-        for(int p=0;p<4;p++){
-        Print<<bord[l][p];}}
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -185,4 +203,96 @@ void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,con
             }
     }
     return;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
+bool check(const Array<Array<int8>> bord)
+{
+    int jugd1=0,jugd2=15;
+    int jugd3=0,jugd4=15;
+    bool flag=true;
+    
+    for(size_t i=0;i<bord.size();i++)
+    {
+        for (size_t j=0;j<bord[i].size();j++)
+        {
+            if(bord[i][j]==-1)
+            {
+                flag=false;
+                break;
+            }
+            jugd1=jugd1|bord[i][j];
+            jugd2=jugd2&bord[i][j];
+            jugd3=jugd3|bord[j][i];
+            jugd4=jugd4&bord[j][i];
+        }
+    
+        if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
+        {
+            return true;
+        }
+        else
+        {
+            jugd1=0;
+            jugd2=15;
+        }
+        
+        if((((jugd3>-1)&&(jugd3<15))|(jugd4>0))&&flag)
+        {
+            return true;
+        }
+        else
+        {
+            jugd3=0;
+            jugd4=15;
+        }
+    }
+    
+    
+    flag=true;
+    for(size_t i=0;i<bord.size();i++)
+    {
+        if(bord[i][i]==-1)
+        {
+            flag=false;
+            break;
+        }
+        jugd1=jugd1|bord[i][i];
+        jugd2=jugd2&bord[i][i];
+        jugd3=jugd3|bord[3-i][i];
+        jugd4=jugd4&bord[3-i][i];
+    }
+    if((((jugd1>-1)&&(jugd1<15))|(jugd2>0))&&flag)
+    {
+        return true;
+    }
+    else
+    {
+        jugd1=0;
+        jugd2=15;
+    }
+    
+    
+    flag=true;
+    for(size_t i=0;i<bord.size();i++)
+    {
+        if(bord[3-i][i]==-1)
+        {
+            flag=false;
+            break;
+        }
+        jugd3=jugd3|bord[3-i][i];
+        jugd4=jugd4&bord[3-i][i];
+        
+    }
+    if((((jugd3>-1)&&(jugd3<15))|(jugd4>0))&&flag)
+    {
+        return true;
+    }
+    else
+    {
+        jugd3=0;
+        jugd4=15;
+    }
+    
+    return false;
 }

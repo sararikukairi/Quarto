@@ -38,6 +38,7 @@
 		565938D12358770000B5CB29 /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565938CC2358770000B5CB29 /* Title.cpp */; };
 		565938D22358770000B5CB29 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565938CE2358770000B5CB29 /* Game.cpp */; };
 		565938D42358774F00B5CB29 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565938D32358774F00B5CB29 /* Main.cpp */; };
+		56B2DF69235C749C002EFE1E /* Result.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56B2DF67235C749C002EFE1E /* Result.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,8 @@
 		565938CE2358770000B5CB29 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		565938CF2358770000B5CB29 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		565938D32358774F00B5CB29 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		56B2DF67235C749C002EFE1E /* Result.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Result.cpp; sourceTree = "<group>"; };
+		56B2DF68235C749C002EFE1E /* Result.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Result.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,8 @@
 				565938CF2358770000B5CB29 /* Scene.hpp */,
 				565938CC2358770000B5CB29 /* Title.cpp */,
 				565938CD2358770000B5CB29 /* Title.hpp */,
+				56B2DF67235C749C002EFE1E /* Result.cpp */,
+				56B2DF68235C749C002EFE1E /* Result.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			files = (
 				565938D22358770000B5CB29 /* Game.cpp in Sources */,
 				565938D12358770000B5CB29 /* Title.cpp in Sources */,
+				56B2DF69235C749C002EFE1E /* Result.cpp in Sources */,
 				565938D42358774F00B5CB29 /* Main.cpp in Sources */,
 				565938D02358770000B5CB29 /* Scene.cpp in Sources */,
 			);

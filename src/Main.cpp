@@ -2,6 +2,7 @@
 # include "Scene.hpp"
 # include "Game.hpp"
 # include "Title.hpp"
+# include "Result.hpp"
 void Main()
 {
     
@@ -40,6 +41,7 @@ void Main()
     manager
         .add<Title>(State::Title)
         .add<Game>(State::Game)
+        .add<Result>(State::Result)
         .setFadeColor(ColorF(1.0));
     
 	while (System::Update())

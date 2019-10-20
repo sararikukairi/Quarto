@@ -33,9 +33,10 @@ private:
     int8 i;
     int8 p;//現在選ばれている駒の属性
     int8 x,y;//マス座標
+    int8 penalty[2]={0};
     
-    bool pturn;
     bool flag;//ターン進行
+    bool cflag;
     bool emptybord[16];
     
 public:
