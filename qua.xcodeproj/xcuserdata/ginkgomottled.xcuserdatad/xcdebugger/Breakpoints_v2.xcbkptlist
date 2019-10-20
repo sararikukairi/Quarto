@@ -10,6 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/Game.cpp"
+<<<<<<< HEAD
             timestampString = "592793954.894083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -19,5 +20,32 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+=======
+            timestampString = "593280002.508033"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "Game::update()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/Game.cpp"
+            timestampString = "593280002.508408"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "piecedraw(const Array&lt;Texture&gt; piece,const Array&lt;Rect&gt; piecebox,const bool empty[])"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+>>>>>>> feature
    </Breakpoints>
 </Bucket>

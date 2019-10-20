@@ -19,18 +19,10 @@ enum class State
 
 struct GameData
 {
-    bool flag;  
+    bool pturn;
+    bool jugd;
 };
 
 using Myapp = SceneManager<State, GameData>;
-
-class Result:public Myapp::Scene
-{
-public:
-    Result();
-    void set();
-    void update();
-    const void draw();
-};
 
 #endif /* Scene_hpp */
