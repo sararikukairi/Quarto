@@ -15,12 +15,12 @@ Title::Title(const InitData& init)
 
 void Title::update()
 {
-    if(MouseL.down()){
+    if(KeyEnter.down()){
         changeScene(State::Game);
     }
 }
 
 void Title::draw() const
 {
-    
+    FontAsset(U"Title")(U"Quarto").draw(544,306);
 }

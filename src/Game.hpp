@@ -29,6 +29,7 @@ private:
     Array<Rect> piecebox;
     
     Rect quarto;
+    Rect nextpiece;
     
     int8 i;
     int8 p;//現在選ばれている駒の属性

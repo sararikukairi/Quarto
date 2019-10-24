@@ -17,15 +17,15 @@ Game::Game(const InitData& init)
     
     for(int i=0;i<4;i++)
     {
-        sline1<<Circle(344+(i*64),64+(i*64),40);
-        sline2<<Circle(280+(i*64),64*2+(i*64),40);
-        sline3<<Circle(216+(i*64),64*3+(i*64),40);
-        sline4<<Circle(152+(i*64),64*4+(i*64),40);
+        sline1<<Circle(344+(i*78.3380951166),78.3380951166+(i*78.3380951166),54);
+        sline2<<Circle((344-(78.3380951166))+(i*78.3380951166),78.3380951166*2+(i*78.3380951166),54);
+        sline3<<Circle((344-(2*78.3380951166))+(i*78.3380951166),78.3380951166*3+(i*78.3380951166),54);
+        sline4<<Circle((344-(3*78.3380951166))+(i*78.3380951166),78.3380951166*4+(i*78.3380951166),54);
         
-        piecebox<<Rect(700,50+i*100,100,100);
-        piecebox<<Rect(800,50+i*100,100,100);
-        piecebox<<Rect(900,50+i*100,100,100);
-        piecebox<<Rect(1000,50+i*100,100,100);
+        piecebox<<Rect(700,50+i*108,100,108);
+        piecebox<<Rect(800,50+i*108,100,108);
+        piecebox<<Rect(900,50+i*108,100,108);
+        piecebox<<Rect(1000,50+i*108,100,108);
         
         line1<<-1;
         line2<<-1;
@@ -58,7 +58,8 @@ Game::Game(const InitData& init)
     piece<<TextureAsset(U"SBRU");
     piece<<TextureAsset(U"SBRH");
 
-    quarto=Rect(444,500,200,100);
+    quarto=Rect(500,500,200,100);
+    nextpiece=Rect(600,50,100,108);
     
     flag=true;
     cflag=true;
@@ -134,27 +135,36 @@ void Game::draw() const
     piecedraw(piece,piecebox,emptybord);//未使用の駒表示
     usepiecedraw(piece,sell,bord);
     
+    nextpiece.draw(Palette::Tan);
+    if(!flag)
+    {
+        piece[p].scaled(0.2).draw(nextpiece.x+19.6,nextpiece.y);
+    }
+    
     if(quarto.mouseOver())//クアルトボタン
     {
         quarto.draw(Palette::Red);
-        FontAsset(U"Score")(U"Quarto!").draw(quarto.x+30,quarto.y+25,Palette::White);
     }
-    
     else
     {
         quarto.draw();
-        FontAsset(U"Score")(U"Quarto!").draw(quarto.x+30,quarto.y+25,Palette::Black);
     }
+    
+    FontAsset(U"Score")(U"Quarto!").draw(quarto.x,quarto.y+10,Palette::Black);
     
     if(getData().pturn)
     {
-        FontAsset(U"Score")(U"Player 1").draw();
-        FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[0])).draw(0,35);
+        FontAsset(U"Score")(U"Player 1").draw(0,0,Palette::Black);
+        FontAsset(U"Score")(U"Penalty:{}"_fmt(penalty[0])).draw(0,45,Palette::Black);
     }
     else
     {
-        FontAsset(U"Score")(U"Player 2").draw();
-        FontAsset(U"Score")(U"penalty:{}"_fmt(penalty[1])).draw(0,35);
+        FontAsset(U"Score")(U"Player 2").draw(0,0,Palette::Black);
+        FontAsset(U"Score")(U"Penalty:{}"_fmt(penalty[1])).draw(0,45,Palette::Black);
+    }
+    if(!cflag)
+    {
+        FontAsset(U"Title")(U"Please Enter").draw(300,300,Palette::Red);
     }
 }
 ////////////////////////////////////////////////////////////////////////////
@@ -184,7 +194,7 @@ void piecedraw(const Array<Texture> piece,const Array<Rect> piecebox,const bool 
         piecebox[i].draw(Palette::Gray);
         if(empty[i])
         {
-            piece[i].draw(piecebox[i].pos);
+            piece[i].scaled(0.2).draw(piecebox[i].x+19.6,piecebox[i].y);
         }
     }
     return;
@@ -198,7 +208,7 @@ void usepiecedraw(const Array<Texture> piece,const Array<Array<Circle>> sell,con
         for(size_t j=0;j<bord[i].size();j++)
             if(bord[i][j]>=0)
             {
-                piece[bord[i][j]].draw(sell[i][j].x-45,sell[i][j].y-55);
+                piece[bord[i][j]].scaled(0.2).draw(sell[i][j].x-30.4,sell[i][j].y-54);
             }
     }
     return;
@@ -299,3 +309,4 @@ bool check(const Array<Array<int8>> bord)
     }
     return false;
 }
+//(108-54)-60.8
